@@ -9,6 +9,8 @@ interface TitleContextType {
   setDescription: (description?: string) => void;
   count?: number;
   setCount: (count?: number) => void;
+  namespace: string;
+  setNamespace: (namespace: string) => void;
 }
 
 const TitleContext = React.createContext<TitleContextType | undefined>(
@@ -19,6 +21,7 @@ export function TitleProvider({ children }: { children: React.ReactNode }) {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState<string | undefined>();
   const [count, setCount] = React.useState<number | undefined>();
+  const [namespace, setNamespace] = React.useState("All Namespaces");
 
   return (
     <TitleContext.Provider
@@ -29,6 +32,8 @@ export function TitleProvider({ children }: { children: React.ReactNode }) {
         setDescription,
         count,
         setCount,
+        namespace,
+        setNamespace,
       }}
     >
       {children}

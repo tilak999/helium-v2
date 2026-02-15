@@ -8,13 +8,14 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { TitleProvider, useTitle } from "@/hooks/use-title";
+import { NamespaceSelector } from "@/components/namespace-selector";
 
 function HeaderTitle() {
   const { title, count, description } = useTitle();
   if (!title) return null;
 
   return (
-    <div className="flex items-center gap-2 px-2 overflow-hidden">
+    <div className="w-full flex items-center gap-3 px-2 justify-between">
       <div className="flex items-center gap-2 min-w-0">
         <h1 className="text-sm font-semibold truncate">{title}</h1>
         {count !== undefined && (
@@ -23,17 +24,7 @@ function HeaderTitle() {
           </span>
         )}
       </div>
-      {description && (
-        <>
-          <Separator
-            orientation="vertical"
-            className="h-3 bg-border/40 mx-1 shrink-0"
-          />
-          <p className="text-xs text-muted-foreground truncate">
-            {description}
-          </p>
-        </>
-      )}
+      <NamespaceSelector />
     </div>
   );
 }
@@ -45,11 +36,11 @@ export default function DashboardLayout({
 }) {
   return (
     <TitleProvider>
-      <SidebarProvider>
+      <SidebarProvider className="h-svh min-h-0! overflow-hidden">
         <AppSidebar />
-        <SidebarInset>
-          <header className="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-border/40 sticky top-0 z-40 bg-background/80 backdrop-blur-sm px-4">
-            <div className="flex items-center gap-2 min-w-0">
+        <SidebarInset className="overflow-hidden">
+          <header className="w-full flex h-12 shrink-0 items-center justify-between gap-2 border-b border-border/40 sticky top-0 z-40 bg-background/80 backdrop-blur-sm px-4">
+            <div className="w-full flex items-center gap-2 min-w-0">
               <SidebarTrigger className="-ml-1" />
               <Separator
                 orientation="vertical"
@@ -58,7 +49,7 @@ export default function DashboardLayout({
               <HeaderTitle />
             </div>
           </header>
-          <main className="flex flex-1 flex-col overflow-hidden">
+          <main className="flex flex-1 flex-col overflow-hidden min-h-0">
             {children}
           </main>
         </SidebarInset>

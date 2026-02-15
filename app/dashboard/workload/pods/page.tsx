@@ -1,6 +1,6 @@
 "use client";
 
-import { DataTable, Column } from "@/components/data-table";
+import { DataTable, Column, RowAction } from "@/components/data-table";
 import {
   ResourcePage,
   StatusBadge,
@@ -234,6 +234,22 @@ const columns: Column<Pod>[] = [
 ];
 
 export default function PodsPage() {
+  const podActions: RowAction<(typeof pods)[0]>[] = [
+    {
+      label: "View Details",
+      onClick: (pod) => console.log("View details for", pod.name),
+    },
+    {
+      label: "View Logs",
+      onClick: (pod) => console.log("View logs for", pod.name),
+    },
+    {
+      label: "Delete",
+      onClick: (pod) => console.log("Delete pod", pod.name),
+      variant: "destructive",
+    },
+  ];
+
   return (
     <ResourcePage
       title="Pods"
@@ -246,6 +262,7 @@ export default function PodsPage() {
         searchKey="name"
         searchPlaceholder="Search pods..."
         onRefresh={() => {}}
+        rowActions={podActions}
       />
     </ResourcePage>
   );
